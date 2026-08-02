@@ -164,6 +164,73 @@
   footer p { color: var(--muted); margin-bottom: 30px; }
   .fine { color: #5d6a8f; font-size: 12.5px; margin-top: 50px; }
 
+  /* ===== DEMO PHONE (animated product demo — replaces video) ===== */
+  .demo-wrap { text-align: center; padding: 20px 0 80px; position: relative; }
+  .demo-phone {
+    width: 290px; height: 590px; margin: 0 auto; position: relative;
+    background: #0a0f0e; border: 1px solid var(--border); border-radius: 44px;
+    box-shadow: 0 40px 90px -20px rgba(0,0,0,0.65), 0 0 0 8px #101a17, 0 0 0 9px #22352e;
+    overflow: hidden; text-align: left;
+  }
+  .demo-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 100px; height: 24px; background: #050807; border-radius: 14px; z-index: 20; }
+  .demo-screen { position: absolute; inset: 0; padding: 44px 18px 18px; display: flex; flex-direction: column; }
+  .demo-topbar { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 11.5px; margin-bottom: 18px; }
+  .demo-topbar b { color: var(--text); font-weight: 600; }
+  .demo-avatar {
+    width: 46px; height: 46px; border-radius: 50%; margin: 0 auto 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #06251c; font-size: 17px;
+  }
+  .demo-callname { text-align: center; font-weight: 700; font-size: 16px; }
+  .demo-callsub { text-align: center; color: var(--muted); font-size: 12px; margin-bottom: 22px; }
+  .demo-actions { display: flex; justify-content: center; gap: 34px; margin-bottom: 26px; }
+  .demo-actions div { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .demo-decline { background: #2a1215; border: 1px solid rgba(248,113,113,0.4); }
+  .demo-accept { background: #0d2b21; border: 1px solid rgba(52,211,153,0.4); }
+  .demo-stage { flex: 1; position: relative; }
+  .demo-el { position: absolute; left: 0; right: 0; opacity: 0; animation-duration: 14s; animation-timing-function: ease; animation-fill-mode: both; }
+  @keyframes d1 {
+    0% { opacity: 0; transform: translateY(8px); } 3%, 20% { opacity: 1; transform: none; } 23%, 100% { opacity: 0; }
+  }
+  @keyframes d2 {
+    0%, 23% { opacity: 0; transform: translateY(8px); } 26%, 43% { opacity: 1; transform: none; } 46%, 100% { opacity: 0; }
+  }
+  @keyframes d3 {
+    0%, 46% { opacity: 0; transform: translateY(8px); } 49%, 68% { opacity: 1; transform: none; } 71%, 100% { opacity: 0; }
+  }
+  @keyframes d4 {
+    0%, 71% { opacity: 0; transform: scale(0.96); } 74%, 94% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; }
+  }
+  .demo-el.s1 { animation-name: d1; } .demo-el.s2 { animation-name: d2; } .demo-el.s3 { animation-name: d3; } .demo-el.s4 { animation-name: d4; }
+  .demo-bubble {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 13px 15px; font-size: 12.5px; line-height: 1.5; color: var(--text); margin-bottom: 8px;
+  }
+  .demo-bubble small { display: block; color: var(--muted); font-size: 10.5px; margin-top: 5px; }
+  .demo-bubble .link { color: var(--accent); font-weight: 700; }
+  .demo-missed {
+    background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.35);
+    color: #fca5a5; text-align: center; font-weight: 600; font-size: 12.5px;
+    padding: 11px; border-radius: 12px; margin-bottom: 14px;
+  }
+  .demo-book {
+    background: linear-gradient(180deg, var(--card), #0f1a17); border: 1px solid rgba(45,212,167,0.45);
+    border-radius: 16px; padding: 18px; text-align: center;
+  }
+  .demo-book .tick {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #06251c;
+    font-size: 22px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: 800;
+  }
+  .demo-book h5 { font-size: 15px; margin-bottom: 4px; }
+  .demo-book p { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+  .demo-book .chip { display: inline-block; background: rgba(45,212,167,0.14); border: 1px solid rgba(45,212,167,0.4); color: #6ee7c4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+  .demo-caption { margin-top: 26px; color: var(--muted); font-size: 13px; }
+  .demo-caption b { color: var(--text); }
+  .demo-tag { position: absolute; top: 34px; right: -8px; background: var(--accent); color: #06251c; font-size: 10.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px; transform: rotate(6deg); }
+  @media (max-width: 640px) { .demo-phone { width: 260px; height: 540px; } .demo-wrap { padding: 10px 0 56px; } }
+  @media (prefers-reduced-motion: reduce) { .demo-el { animation: none; opacity: 1; position: static; margin-bottom: 10px; } .demo-stage { display: flex; flex-direction: column; } }
+
   /* ===== MOBILE ===== */
   @media (max-width: 640px) {
     .container { padding: 0 18px; }
@@ -237,6 +304,50 @@
   <div id="form-msg"></div>
   <div class="count-line" id="count-line">Loading signup count…</div>
 </header>
+
+<div class="demo-wrap container">
+  <div class="demo-phone">
+    <div class="demo-notch"></div>
+    <div class="demo-screen">
+      <div class="demo-topbar"><span>9:41</span><b>Calloto</b><span>▮▮▮</span></div>
+      <div class="demo-el s1">
+        <div class="demo-avatar">SM</div>
+        <div class="demo-callname">Sarah Mitchell</div>
+        <div class="demo-callsub">calling your business…</div>
+        <div class="demo-actions">
+          <div class="demo-decline">✕</div>
+          <div class="demo-accept">📞</div>
+        </div>
+      </div>
+      <div class="demo-stage">
+        <div class="demo-el s2">
+          <div class="demo-missed">Missed call — Sarah Mitchell · 1 min ago</div>
+        </div>
+        <div class="demo-el s3">
+          <div class="demo-bubble">Hi Sarah! Thanks for calling <b>Mitchell &amp; Sons Plumbing</b>.
+            Boiler repairs from <b>£120</b>. We're on a job right now — grab a slot:
+            <span class="link">calloto.co.uk/book/mitchell</span>
+            <small>✓ Delivered · just now · via Calloto</small>
+          </div>
+          <div class="demo-bubble" style="margin-left:28px; background:#0d2b21; border-color:rgba(52,211,153,0.35);">
+            Perfect — booking Thu 2pm 👍
+            <small>✓ Delivered</small>
+          </div>
+        </div>
+        <div class="demo-el s4">
+          <div class="demo-book">
+            <div class="tick">✓</div>
+            <h5>Job booked — not lost</h5>
+            <p>Sarah booked <b>Thu 2pm — boiler repair</b> while you were still on the ladder. The other guy never got the call.</p>
+            <span class="chip">+£180 job · 14 seconds after missed call</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-tag">Live demo</div>
+  <p class="demo-caption">Missed call → instant text-back → <b>booked while you're still working.</b></p>
+</div>
 
 <section class="split container" id="problem">
   <div class="pain">
