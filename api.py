@@ -27,6 +27,17 @@ ADMIN_TOKEN = os.environ.get("WAITLIST_ADMIN_TOKEN", "change-me")
 
 app = FastAPI(title="Calloto Waitlist", docs_url=None, redoc_url=None)
 
+@app.middleware("http")
+async def _no_cache(request, call_next):
+    """Validation landing: never let browsers/WhatsApp webviews cache the page
+    (the waitlist counter + copy change often; stale cache caused 'old page'
+    reports)."""
+    response = await call_next(request)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
