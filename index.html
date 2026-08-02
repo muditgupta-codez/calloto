@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calloto — Never lose a job to a missed call</title>
-<meta name="description" content="Missed call → instant text-back with your name, price estimate and booking link. Plumbers, electricians, builders — never lose a job to a missed call again.">
+<title>Calloto — Never lose a customer to a missed call</title>
+<meta name="description" content="Missed call → instant text-back with your name, price estimate and booking link. Trades, salons, clinics — never lose a customer to a missed call again.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -72,6 +72,11 @@
     max-width: 640px; margin: 0 auto 30px; text-wrap: balance;
   }
   .hero-form { display: flex; gap: 10px; justify-content: center; max-width: 560px; margin: 0 auto; flex-wrap: wrap; width: 100%; }
+  .hero-form select.seg-select {
+    flex: 1 1 100%; min-width: 0; background: var(--card);
+    border: 1px solid var(--border); color: var(--text);
+    padding: 13px 14px; border-radius: 10px; font-size: 15px; font-family: inherit;
+  }
   .hero-form input[type="email"] {
     flex: 1 1 auto; min-width: 0; background: var(--card);
     border: 1px solid var(--border); color: var(--text);
@@ -199,10 +204,20 @@
 </nav>
 
 <header class="hero container">
-  <div class="badge">For UK trades — early access 2026</div>
-  <h1>Never lose a job<br><span class="grad">to a missed call.</span></h1>
-  <p class="sub">A customer calls while you're on the ladder. Calloto texts them back instantly — your name, a rough price, and a booking link. They hire you, not the next guy.</p>
+  <div class="badge">For UK businesses — trades first · early access 2026</div>
+  <h1>Never lose a customer<br><span class="grad">to a missed call.</span></h1>
+  <p class="sub">A customer calls while you're on a job, in a meeting, or on the road. Calloto texts them back instantly — your name, a rough price, and a booking link. They choose you, not the next business that picks up.</p>
   <form class="hero-form" id="waitlist-form">
+    <select class="seg-select" id="segment">
+      <option value="trades">Trades — plumber, electrician, builder…</option>
+      <option value="salon-beauty">Salon / barber / beauty</option>
+      <option value="clinic-health">Clinic / dentist / health</option>
+      <option value="property">Estate / letting agent</option>
+      <option value="repair-mobile">Repair / mobile services</option>
+      <option value="cleaning-gardening">Cleaning / gardening</option>
+      <option value="office-services">Office / consultancy</option>
+      <option value="other">Something else</option>
+    </select>
     <input type="email" id="email" placeholder="you@yourcompany.co.uk" required autocomplete="email">
     <button type="submit" class="btn" id="join-btn">Join waitlist</button>
   </form>
@@ -212,12 +227,12 @@
 
 <section class="split container" id="problem">
   <div class="pain">
-    <h3>The job you just lost</h3>
+    <h3>The customer you just lost</h3>
     <ul>
-      <li>7 in 10 customer calls go to voicemail or get missed — and they call the next plumber</li>
-      <li>You're on a job, driving, or up a ladder when the phone rings</li>
+      <li>7 in 10 customer calls go to voicemail or get missed — and they call the next business</li>
+      <li>You're on a job, in a meeting, or driving when the phone rings</li>
       <li>By the time you call back, they've booked someone else</li>
-      <li>Every missed call is a missed quote — easily £200-£1,000 of work</li>
+      <li>Every missed call is a missed sale — £200-£1,000 of work for trades, a full booking for salons and clinics</li>
     </ul>
   </div>
   <div class="gain">
@@ -229,6 +244,37 @@
       <li>You see every missed call, every reply, every booked job in one feed</li>
       <li>Works with your existing number. Set up in 5 minutes</li>
     </ul>
+  </div>
+</section>
+
+<section class="container" id="verticals">
+  <h2 class="sec-title">Not just trades — any business</h2>
+  <p class="sec-sub">Calloto is built as a platform: one setup flow, works for any business that misses calls. Trades are the flagship use case — the same flow answers for everyone else too.</p>
+  <div class="steps">
+    <div class="step">
+      <h4>🔧 Trades <span style="color:var(--accent); font-size:12px; font-weight:700;">FLAGSHIP</span></h4>
+      <p>Plumbers, electricians, builders, roofers, locksmiths. One missed job pays for a year.</p>
+    </div>
+    <div class="step">
+      <h4>✂️ Salons &amp; barbers</h4>
+      <p>Missed booking calls become confirmed appointments instead of silent losses.</p>
+    </div>
+    <div class="step">
+      <h4>🩺 Clinics &amp; dentists</h4>
+      <p>Patients calling to reschedule get an instant reply — not a voicemail graveyard.</p>
+    </div>
+    <div class="step">
+      <h4>🏠 Estate &amp; letting agents</h4>
+      <p>Every enquiry answered in seconds, even mid-viewing or on the road.</p>
+    </div>
+    <div class="step">
+      <h4>🚚 Mobile &amp; repair services</h4>
+      <p>Mechanics, appliance repair, pest control — call-outs caught before they dial elsewhere.</p>
+    </div>
+    <div class="step">
+      <h4>🧹 Cleaners &amp; gardeners</h4>
+      <p>Recurring customers kept, quotes sent on the spot while you're at another job.</p>
+    </div>
   </div>
 </section>
 
@@ -262,7 +308,7 @@
   <div class="pricing-card">
     <span class="price-flag">Early-bird pricing</span>
     <div class="price">£19<span>/month</span></div>
-    <p style="color:var(--muted); font-size:14.5px;">per trade business</p>
+    <p style="color:var(--muted); font-size:14.5px;">per business</p>
     <ul class="pricing-features">
       <li><b>Unlimited missed calls</b> — every one gets a text-back</li>
       <li><b>Instant auto-reply</b> with your name & rough price</li>
@@ -297,15 +343,25 @@
     </details>
     <details>
       <summary>Is this just for plumbers?</summary>
-      <p>Any trade: electricians, builders, roofers, locksmiths, gardeners, cleaners — anyone who loses jobs to missed calls. Early access prioritises plumbers & electricians.</p>
+      <p>No — any business that loses customers to missed calls: trades (plumbers, electricians, builders, roofers), salons, clinics, estate agents, repair services and more. Trades get early access first; other businesses join the waitlist and we onboard by demand.</p>
     </details>
   </div>
 </section>
 
 <footer class="container" id="join">
-  <h2>Stop losing jobs.</h2>
+  <h2>Stop losing customers.</h2>
   <p>Early-bird pricing (£19/mo) locked for everyone on the waitlist. We'll set you up as soon as your area is live.</p>
   <form class="hero-form" id="footer-form">
+    <select class="seg-select" id="footer-segment">
+      <option value="trades">Trades — plumber, electrician, builder…</option>
+      <option value="salon-beauty">Salon / barber / beauty</option>
+      <option value="clinic-health">Clinic / dentist / health</option>
+      <option value="property">Estate / letting agent</option>
+      <option value="repair-mobile">Repair / mobile services</option>
+      <option value="cleaning-gardening">Cleaning / gardening</option>
+      <option value="office-services">Office / consultancy</option>
+      <option value="other">Something else</option>
+    </select>
     <input type="email" id="footer-email" placeholder="you@yourcompany.co.uk" required autocomplete="email">
     <button type="submit" class="btn">Join waitlist</button>
   </form>
@@ -322,6 +378,8 @@
     const emailEl = document.getElementById(emailId);
     const msgEl = document.getElementById(msgId);
     const btnEl = formId === "waitlist-form" ? document.getElementById("join-btn") : null;
+    const segEl = document.getElementById(formId === "waitlist-form" ? "segment" : "footer-segment");
+    const segment = segEl ? segEl.value : "trades";
     if (!emailEl.value || !emailEl.value.includes("@")) {
       msgEl.textContent = "Please enter a valid email.";
       msgEl.className = "form-error";
@@ -335,7 +393,7 @@
       const res = await fetch(API + "/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailEl.value, company: "", country: "GB", segment: "trade" })
+        body: JSON.stringify({ email: emailEl.value, company: "", country: "GB", segment: segment })
       });
       if (res.status === 201) {
         const data = await res.json();
@@ -378,7 +436,7 @@
       const res = await fetch(API + "/waitlist/count");
       const data = await res.json();
       document.getElementById("count-line").innerHTML =
-        "🚀 <b>" + data.count + "</b> trade businesses already on the waitlist";
+        "🚀 <b>" + data.count + "</b> businesses already on the waitlist";
     } catch (e) {
       document.getElementById("count-line").textContent = "";
     }

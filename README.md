@@ -1,6 +1,8 @@
-# Calloto — missed-call text-back for UK trades
+# Calloto — missed-call text-back for UK businesses
 
-Never lose a job to a missed call. Missed call → instant text-back with your name, price and booking link.
+Never lose a customer to a missed call. Missed call → instant text-back with your name, price and booking link.
+
+Built as a generic platform: any business that misses calls (trades are the flagship use case — plumbers, electricians, builders — plus salons, clinics, estate agents, repair services). The waitlist captures an industry segment so demand decides the next vertical.
 
 - Landing: `/` (index.html)
 - Waitlist API: FastAPI + SQLite

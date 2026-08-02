@@ -5,7 +5,7 @@
 **Product name:** Calloto
 
 **Tagline:**
-Never lose a job to a missed call. Missed call → instant text-back with your name, price and booking link.
+Never lose a customer to a missed call. Missed call → instant text-back with your name, price and booking link.
 
 **Category:** Communication / Business Tools
 
@@ -15,20 +15,21 @@ Never lose a job to a missed call. Missed call → instant text-back with your n
 
 **Description (main body — ~120 words):**
 
-Calloto catches every missed call for UK trade businesses — plumbers, electricians, builders, roofers, locksmiths — and texts the customer back in seconds with your name, a rough price, and a booking link.
+Calloto catches every missed call for UK businesses — trades first: plumbers, electricians, builders, roofers, locksmiths — and texts the customer back in seconds with your name, a rough price, and a booking link.
 
-While you're up a ladder or driving between jobs, your customers get an instant reply instead of silence. They book you on the spot instead of calling the next plumber.
+While you're up a ladder, in a meeting, or driving between jobs, your customers get an instant reply instead of silence. They book you on the spot instead of calling the next business.
 
 - Works with your existing phone number — 5-minute setup, no new number, no app for customers
 - Unlimited missed calls, auto text-back with your own message and price range
 - One-tap booking link with your availability
 - Missed-call feed: see every call, every reply, every booked job
 - WhatsApp text-back for customers who prefer chat
+- Built as a platform: salons, clinics, estate agents, repair services and more use the same flow
 - £19/month, no contracts
 
 Built by a founder who runs Voxvaani (voice & WhatsApp automation). One missed job pays for a year.
 
-**Tags/keywords:** missed call, text back, UK trades, plumber, electrician, lead capture, WhatsApp, SMS, booking, small business
+**Tags/keywords:** missed call, text back, UK trades, plumber, electrician, salon, clinic, estate agent, lead capture, WhatsApp, SMS, booking, small business
 
 ## Screenshots to capture (3)
 
