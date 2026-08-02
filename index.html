@@ -100,7 +100,11 @@
   .count-line b { color: var(--text); }
 
   /* SECTIONS */
-  section { padding: 88px 0; }
+  section { padding: 72px 0; }
+  /* .container's side-padding shorthand beats the element selector — reassert vertical padding */
+  nav.container { padding: 22px 24px; }
+  section.container { padding: 72px 24px; }
+  footer.container { padding: 72px 24px 90px; }
   .sec-title { font-size: clamp(28px, 3.6vw, 40px); font-weight: 800; letter-spacing: -0.02em; text-align: center; margin-bottom: 14px; }
   .sec-sub { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 48px; font-size: 16px; }
 
@@ -173,7 +177,10 @@
     .hero-form select.seg-select { width: 100%; max-width: 100%; padding: 14px 16px; font-size: 16px; }
     .hero-form input[type="email"] { min-width: 0; width: 100%; padding: 14px 16px; font-size: 16px; }
     .hero-form .btn { width: 100%; padding: 14px 20px; }
-    section { padding: 58px 0; }
+    section { padding: 48px 0; }
+    nav.container { padding: 14px 18px; }
+    section.container { padding: 48px 18px; }
+    footer.container { padding: 54px 18px 70px; }
     .sec-title { font-size: 28px; }
     .sec-sub { margin-bottom: 30px; font-size: 15px; }
     .split { gap: 26px; }
