@@ -1,4 +1,4 @@
-"""CallCatch — waitlist API (validation test).
+"""Calloto — waitlist API (validation test).
 
 Self-contained: FastAPI + SQLite. No external deps beyond fastapi/uvicorn.
 Endpoints:
@@ -25,7 +25,7 @@ DB_PATH = Path(os.environ.get("DB_PATH", "/data/waitlist.db"))
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 ADMIN_TOKEN = os.environ.get("WAITLIST_ADMIN_TOKEN", "change-me")
 
-app = FastAPI(title="CallCatch Waitlist", docs_url=None, redoc_url=None)
+app = FastAPI(title="Calloto Waitlist", docs_url=None, redoc_url=None)
 
 app.add_middleware(
     CORSMiddleware,

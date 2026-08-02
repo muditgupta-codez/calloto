@@ -1,8 +1,8 @@
-# CallCatch — BetaList Submission Package
+# Calloto — BetaList Submission Package
 
 ## Listing Details
 
-**Product name:** CallCatch
+**Product name:** Calloto
 
 **Tagline:**
 Never lose a job to a missed call. Missed call → instant text-back with your name, price and booking link.
@@ -15,7 +15,7 @@ Never lose a job to a missed call. Missed call → instant text-back with your n
 
 **Description (main body — ~120 words):**
 
-CallCatch catches every missed call for UK trade businesses — plumbers, electricians, builders, roofers, locksmiths — and texts the customer back in seconds with your name, a rough price, and a booking link.
+Calloto catches every missed call for UK trade businesses — plumbers, electricians, builders, roofers, locksmiths — and texts the customer back in seconds with your name, a rough price, and a booking link.
 
 While you're up a ladder or driving between jobs, your customers get an instant reply instead of silence. They book you on the spot instead of calling the next plumber.
 
