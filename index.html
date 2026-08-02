@@ -99,12 +99,13 @@
   .count-line { margin-top: 18px; color: var(--muted); font-size: 13.5px; }
   .count-line b { color: var(--text); }
 
-  /* SECTIONS */
-  section { padding: 72px 0; }
+  /* SECTIONS — spacing sits BELOW each section, not above the next heading */
+  section { padding: 0 0 64px; }
+  section.howitworks { padding: 48px 0 64px; }
   /* .container's side-padding shorthand beats the element selector — reassert vertical padding */
   nav.container { padding: 22px 24px; }
-  section.container { padding: 72px 24px; }
-  footer.container { padding: 72px 24px 90px; }
+  section.container { padding: 0 24px 64px; }
+  footer.container { padding: 0 24px 90px; }
   .sec-title { font-size: clamp(28px, 3.6vw, 40px); font-weight: 800; letter-spacing: -0.02em; text-align: center; margin-bottom: 14px; }
   .sec-sub { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 48px; font-size: 16px; }
 
@@ -177,10 +178,11 @@
     .hero-form select.seg-select { width: 100%; max-width: 100%; padding: 14px 16px; font-size: 16px; }
     .hero-form input[type="email"] { min-width: 0; width: 100%; padding: 14px 16px; font-size: 16px; }
     .hero-form .btn { width: 100%; padding: 14px 20px; }
-    section { padding: 48px 0; }
+    section { padding: 0 0 44px; }
+    section.howitworks { padding: 32px 0 44px; }
     nav.container { padding: 14px 18px; }
-    section.container { padding: 48px 18px; }
-    footer.container { padding: 54px 18px 70px; }
+    section.container { padding: 0 18px 44px; }
+    footer.container { padding: 0 18px 70px; }
     .sec-title { font-size: 28px; }
     .sec-sub { margin-bottom: 30px; font-size: 15px; }
     .split { gap: 26px; }
