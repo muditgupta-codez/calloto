@@ -12,10 +12,11 @@ class Settings(BaseSettings):
     voxvaani_phone_number: str = ""
 
     app_url: str = "http://localhost:8000"
-    stripe_secret_key: str = ""
-    stripe_price_id: str = ""
-    stripe_webhook_secret: str = ""
-    stripe_tax_enabled: bool = False
+    paddle_api_key: str = ""
+    paddle_price_id: str = ""
+    paddle_client_token: str = ""
+    paddle_webhook_secret: str = ""
+    paddle_tax_enabled: bool = True
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 

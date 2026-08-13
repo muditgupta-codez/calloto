@@ -24,7 +24,6 @@ from app.schemas import (
     HealthResponse,
     MissedCallResponse,
 )
-from app.services.billing import stripe_client
 from app.services.telephony import voxvaani_client
 from app.webhooks import router as webhook_router
 
@@ -142,10 +141,25 @@ async def checkout(
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")
 
-    checkout_url = await stripe_client.create_checkout(customer_email=customer.email)
-    if not checkout_url:
-        raise HTTPException(status_code=500, detail="Failed to create Stripe checkout")
-    return {"checkout_url": checkout_url}
+    return {
+        "client_token": settings.paddle_client_token,
+        "price_id": settings.paddle_price_id,
+        "customer_email": customer.email,
+        "customer_id": customer.id,
+        "success_url": f"{settings.app_url}/static/dashboard.html?upgraded=1",
+    }
+
+
+async def _find_customer_by_custom_id(
+    custom_data: dict | None, db: AsyncSession
+) -> Customer | None:
+    if not custom_data or not custom_data.get("customer_id"):
+        return None
+    try:
+        customer_db_id = int(custom_data["customer_id"])
+    except (TypeError, ValueError):
+        return None
+    return await db.get(Customer, customer_db_id)
 
 
 @app.post("/api/webhook/payment")
@@ -153,62 +167,63 @@ async def payment_webhook(
     request: Request, db: AsyncSession = Depends(get_db)
 ):
     body = await request.body()
-    signature = request.headers.get("stripe-signature", "")
-    if not _verify_stripe_signature(body, signature):
-        raise HTTPException(status_code=400, detail="Invalid Stripe signature")
+    signature = request.headers.get("paddle-signature", "")
+    if not _verify_paddle_signature(body, signature):
+        raise HTTPException(status_code=400, detail="Invalid signature")
 
     payload = json.loads(body)
-    event_type = payload.get("type")
-    event_object = payload.get("data", {}).get("object", {})
+    event_type = payload.get("event_type")
+    event_data = payload.get("data", {})
 
-    if event_type == "checkout.session.completed":
-        customer_email = event_object.get("customer_details", {}).get("email")
-        stripe_customer_id = event_object.get("customer")
-        if customer_email:
-            result = await db.execute(
-                select(Customer).where(Customer.email == customer_email)
-            )
-            customer = result.scalar_one_or_none()
-            if customer:
-                customer.subscription_status = "active"
-                customer.paddle_customer_id = stripe_customer_id
-                await db.commit()
-
-    elif event_type in {
-        "customer.subscription.updated",
-        "customer.subscription.deleted",
-    }:
-        stripe_customer_id = event_object.get("customer")
-        status = (
-            "canceled"
-            if event_type.endswith("deleted")
-            else event_object.get("status")
+    if event_type == "transaction.completed":
+        customer = await _find_customer_by_custom_id(
+            event_data.get("custom_data"), db
         )
-        if stripe_customer_id and status:
-            result = await db.execute(
-                select(Customer).where(
-                    Customer.paddle_customer_id == stripe_customer_id
-                )
-            )
-            customer = result.scalar_one_or_none()
-            if customer:
-                customer.subscription_status = status
-                await db.commit()
+        if customer:
+            customer.subscription_status = "active"
+            customer.paddle_customer_id = event_data.get("customer_id")
+            await db.commit()
+
+    elif event_type == "subscription.activated":
+        customer = await _find_customer_by_custom_id(
+            event_data.get("custom_data"), db
+        )
+        if customer:
+            customer.subscription_status = "active"
+            customer.paddle_customer_id = event_data.get("customer_id")
+            await db.commit()
+
+    elif event_type == "subscription.cancelled":
+        customer = await _find_customer_by_custom_id(
+            event_data.get("custom_data"), db
+        )
+        if customer:
+            customer.subscription_status = "cancelled"
+            await db.commit()
+
+    elif event_type == "subscription.updated":
+        customer = await _find_customer_by_custom_id(
+            event_data.get("custom_data"), db
+        )
+        status = event_data.get("status")
+        if customer and status:
+            customer.subscription_status = status
+            await db.commit()
 
     return {"status": "ok"}
 
 
-def _verify_stripe_signature(payload: bytes, signature: str) -> bool:
-    if not settings.stripe_webhook_secret:
+def _verify_paddle_signature(payload: bytes, signature: str) -> bool:
+    if not settings.paddle_webhook_secret:
         return settings.app_env == "development"
-    parts = dict(item.split("=", 1) for item in signature.split(",") if "=" in item)
-    timestamp = parts.get("t")
-    signature_value = parts.get("v1")
+    parts = dict(item.split("=", 1) for item in signature.split(";") if "=" in item)
+    timestamp = parts.get("ts")
+    signature_value = parts.get("h1")
     if not timestamp or not signature_value:
         return False
-    signed_payload = f"{timestamp}.".encode() + payload
+    signed_payload = f"{timestamp}:{payload.decode()}".encode()
     expected = hmac.new(
-        settings.stripe_webhook_secret.encode(), signed_payload, hashlib.sha256
+        settings.paddle_webhook_secret.encode(), signed_payload, hashlib.sha256
     ).hexdigest()
     return hmac.compare_digest(expected, signature_value)
 

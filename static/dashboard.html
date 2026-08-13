@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/frontend.css?v=3">
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 <body>
     <nav class="dash-nav">
@@ -37,7 +38,7 @@
                 <strong>Free trial</strong>
                 <span id="trial-text">14 days free · no card required</span>
             </div>
-            <a href="/static/signup.html" class="btn btn-green btn-sm" id="trial-cta" style="display:none">Upgrade to £19/month</a>
+            <a href="#" class="btn btn-green btn-sm" id="trial-cta" onclick="upgrade()" style="display:none">Upgrade to £19/month</a>
         </div>
 
         <div class="dash-stats">
@@ -158,6 +159,32 @@
             localStorage.removeItem('customer_id');
             localStorage.removeItem('access_token');
             window.location.href = '/static/login.html';
+        }
+
+        async function upgrade() {
+            try {
+                const res = await fetch(`/api/checkout?customer_id=${customerId}`, { method: 'POST' });
+                if (!res.ok) throw new Error('Checkout failed');
+                const config = await res.json();
+                if (!window.Paddle) throw new Error('Paddle failed to load');
+                Paddle.Environment.set('production');
+                Paddle.Initialize({ token: config.client_token });
+                Paddle.Checkout.open({
+                    items: [{ priceId: config.price_id, quantity: 1 }],
+                    customer: { email: config.customer_email },
+                    customData: { customer_id: String(config.customer_id) },
+                    settings: {
+                        displayMode: 'overlay',
+                        variant: 'one-page',
+                        theme: 'light',
+                        locale: 'en',
+                        successUrl: config.success_url,
+                    },
+                });
+            } catch (err) {
+                console.error('Upgrade error:', err);
+                alert('Could not start checkout. Please try again.');
+            }
         }
 
         loadDashboard();
