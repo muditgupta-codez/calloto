@@ -32,6 +32,14 @@
             <p id="welcome-text">Your missed call activity at a glance</p>
         </div>
 
+        <div class="dash-banner" id="trial-banner">
+            <div class="dash-banner-left">
+                <strong>Free trial</strong>
+                <span id="trial-text">14 days free · no card required</span>
+            </div>
+            <a href="/static/signup.html" class="btn btn-green btn-sm" id="trial-cta" style="display:none">Upgrade to £19/month</a>
+        </div>
+
         <div class="dash-stats">
             <div class="dash-stat">
                 <div class="dash-stat-ic indigo">
@@ -97,6 +105,24 @@
 
                 if (data.customer && data.customer.name) {
                     document.getElementById('welcome-text').textContent = `Welcome back, ${data.customer.name}`;
+                }
+
+                const banner = document.getElementById('trial-banner');
+                const bannerText = document.getElementById('trial-text');
+                const cta = document.getElementById('trial-cta');
+                if (banner && data.customer) {
+                    const status = data.customer.subscription_status;
+                    if (status === 'trial' && data.customer.trial_ends_at) {
+                        const daysLeft = Math.max(0, Math.ceil((new Date(data.customer.trial_ends_at) - new Date()) / 86400000));
+                        bannerText.textContent = daysLeft > 0 ? `${daysLeft} day${daysLeft === 1 ? '' : 's'} left in your free trial` : 'Your free trial has ended';
+                        cta.style.display = 'inline-flex';
+                        banner.classList.add('trial-active');
+                    } else if (status === 'active') {
+                        banner.style.display = 'none';
+                    } else if (status === 'trial') {
+                        bannerText.textContent = 'Free trial · no card required';
+                        cta.style.display = 'inline-flex';
+                    }
                 }
 
                 document.getElementById('stat-calls').textContent = data.missed_calls.length;

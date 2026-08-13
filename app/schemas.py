@@ -21,6 +21,7 @@ class CustomerResponse(BaseModel):
     message_template: str | None
     price_range: str | None
     subscription_status: str
+    trial_ends_at: datetime | None
     created_at: datetime
 
     model_config = {"from_attributes": True}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account — Calloto</title>
-    <meta name="description" content="Start recovering missed calls in 5 minutes. £19/month, no credit card required to begin.">
+    <meta name="description" content="Start recovering missed calls in 5 minutes. 14-day free trial, no credit card required.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
                     Calloto<span class="logo-dot">.</span>
                 </a>
                 <h1>Create your account</h1>
-                <p class="form-sub">Start recovering missed calls in 5 minutes. No credit card required to begin.</p>
+                <p class="form-sub">Start your free 14-day trial. No credit card required.</p>
                 <form id="signup-form">
                     <div class="fg">
                         <label class="form-label" for="name">Business name</label>
@@ -68,7 +68,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-green btn-block btn-lg" id="submit-btn">
-                        Continue to setup
+                        Start free trial
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </button>
                     <div class="form-error" id="error-msg"></div>
@@ -105,7 +105,7 @@
                 errorEl.textContent = err.message;
                 errorEl.style.display = 'flex';
                 btn.disabled = false;
-                btn.innerHTML = 'Continue to setup <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+                btn.innerHTML = 'Start free trial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
             }
         });
     </script>

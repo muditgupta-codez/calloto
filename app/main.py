@@ -2,12 +2,12 @@ import hashlib
 import hmac
 import json
 from contextlib import asynccontextmanager
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.admin import router as admin_router
@@ -33,6 +33,14 @@ from app.webhooks import router as webhook_router
 async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        result = await conn.execute(
+            text("PRAGMA table_info(customers)")
+        )
+        columns = [row[1] for row in result.fetchall()]
+        if "trial_ends_at" not in columns:
+            await conn.execute(
+                text("ALTER TABLE customers ADD COLUMN trial_ends_at DATETIME")
+            )
     yield
 
 
@@ -117,6 +125,8 @@ async def signup(customer: CustomerCreate, db: AsyncSession = Depends(get_db)):
             "Rough price {price_range}. "
             "Book your job here: {booking_link}"
         ),
+        subscription_status="trial",
+        trial_ends_at=datetime.now() + timedelta(days=14),
     )
     db.add(new_customer)
     await db.commit()

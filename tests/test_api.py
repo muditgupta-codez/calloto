@@ -26,7 +26,8 @@ async def test_signup(client):
     data = response.json()
     assert data["email"] == "test@example.com"
     assert data["name"] == "Test Plumber"
-    assert data["subscription_status"] == "inactive"
+    assert data["subscription_status"] == "trial"
+    assert data["trial_ends_at"] is not None
 
 
 @pytest.mark.asyncio

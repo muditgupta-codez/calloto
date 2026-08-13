@@ -91,24 +91,22 @@
 
         <div class="step" data-step="3">
             <div class="form-card">
-                <h2>Step 3: Choose your plan</h2>
-                <p class="form-sub">Start recovering missed calls today. Cancel anytime.</p>
+                <h2>Step 3: Start your free trial</h2>
+                <p class="form-sub">14 days free. No card required. Cancel anytime.</p>
                 <div class="plan-box">
-                    <h3>Monthly plan</h3>
-                    <div class="plan-price">£19<span>/month</span></div>
+                    <h3>Your free trial</h3>
+                    <div class="plan-price">14 days<span> free</span></div>
                     <ul>
+                        <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Full product, fully active</li>
                         <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Unlimited missed calls</li>
                         <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> 100 text-backs included</li>
-                        <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> WhatsApp or SMS</li>
-                        <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> ROI dashboard</li>
-                        <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> No contracts, cancel anytime</li>
+                        <li><span class="pricing-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Then just £19/month</li>
                     </ul>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-ghost" onclick="prevStep(2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back</button>
-                    <button class="btn btn-green" id="checkout-btn" onclick="startCheckout()">Continue to payment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+                    <button class="btn btn-green" onclick="nextStep(4)">Start free trial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
                 </div>
-                <div class="form-error" id="checkout-error"></div>
             </div>
         </div>
 
@@ -118,8 +116,8 @@
                     <div class="success-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <h1>You're all set!</h1>
-                    <p class="form-sub">Calloto is now active. Test it by calling your number from another phone.</p>
+                    <h1>Your 14-day trial is live!</h1>
+                    <p class="form-sub">Calloto is now active. Test it by calling your number from another phone. No charge until your trial ends.</p>
                     <button class="btn btn-green btn-lg" onclick="window.location.href='/static/dashboard.html'">
                         Go to dashboard
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -165,25 +163,6 @@
 
         function nextStep(step) { showStep(step); }
         function prevStep(step) { showStep(step); }
-
-        async function startCheckout() {
-            const btn = document.getElementById('checkout-btn');
-            const errorEl = document.getElementById('checkout-error');
-            btn.disabled = true;
-            btn.innerHTML = '<span>Redirecting...</span>';
-            errorEl.style.display = 'none';
-            try {
-                const res = await fetch(`/api/checkout?customer_id=${customerId}`, { method: 'POST' });
-                if (!res.ok) { const err = await res.json(); throw new Error(err.detail || 'Checkout failed'); }
-                const data = await res.json();
-                window.location.href = data.checkout_url;
-            } catch (err) {
-                errorEl.textContent = err.message;
-                errorEl.style.display = 'flex';
-                btn.disabled = false;
-                btn.innerHTML = 'Continue to payment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
-            }
-        }
     </script>
 </body>
 </html>

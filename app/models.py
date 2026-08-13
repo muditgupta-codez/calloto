@@ -22,6 +22,7 @@ class Customer(Base):
     price_range: Mapped[str | None] = mapped_column(String)
     paddle_customer_id: Mapped[str | None] = mapped_column(String)
     subscription_status: Mapped[str] = mapped_column(String, default="inactive")
+    trial_ends_at: Mapped[datetime | None] = mapped_column(DateTime)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
