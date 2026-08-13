@@ -105,7 +105,6 @@ async def signup(customer: CustomerCreate, db: AsyncSession = Depends(get_db)):
         select(Customer).where(Customer.email == customer.email)
     )
     if existing.scalar_one_or_none():
-        from fastapi import HTTPException
         raise HTTPException(status_code=400, detail="Email already registered")
 
     new_customer = Customer(
@@ -131,7 +130,6 @@ async def checkout(
 ):
     customer = await db.get(Customer, customer_id)
     if not customer:
-        from fastapi import HTTPException
         raise HTTPException(status_code=404, detail="Customer not found")
 
     checkout_url = await stripe_client.create_checkout(customer_email=customer.email)
@@ -212,7 +210,6 @@ async def dashboard(customer_id: int, db: AsyncSession = Depends(get_db)):
     )
     customer = customer_result.scalar_one_or_none()
     if not customer:
-        from fastapi import HTTPException
         raise HTTPException(status_code=404, detail="Customer not found")
 
     calls_result = await db.execute(
@@ -263,7 +260,6 @@ async def create_booking(
 ):
     customer = await db.get(Customer, booking.customer_id)
     if not customer:
-        from fastapi import HTTPException
         raise HTTPException(status_code=404, detail="Customer not found")
 
     slot_time = datetime.strptime(
@@ -287,7 +283,6 @@ async def login(email: str, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Customer).where(Customer.email == email))
     customer = result.scalar_one_or_none()
     if not customer:
-        from fastapi import HTTPException
         raise HTTPException(status_code=404, detail="Customer not found")
 
     token = create_access_token(data={"sub": customer.id})
