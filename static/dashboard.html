@@ -24,6 +24,9 @@
                 <a href="/static/onboarding.html">Settings</a>
                 <span class="dash-logout" onclick="logout()">Log out</span>
             </div>
+            <button class="dash-toggle" id="dashToggle" aria-label="Open dashboard menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            </button>
         </div>
     </nav>
 
@@ -160,6 +163,19 @@
             localStorage.removeItem('access_token');
             window.location.href = '/static/login.html';
         }
+
+        const dashToggle = document.getElementById('dashToggle');
+        const dashLinks = document.querySelector('.dash-nav-links');
+        dashToggle.addEventListener('click', () => {
+            const open = dashLinks.classList.toggle('open');
+            dashToggle.setAttribute('aria-expanded', String(open));
+        });
+        dashLinks.querySelectorAll('a, .dash-logout').forEach(link => {
+            link.addEventListener('click', () => {
+                dashLinks.classList.remove('open');
+                dashToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
 
         async function upgrade() {
             try {
